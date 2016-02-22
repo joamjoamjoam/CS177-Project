@@ -34,6 +34,7 @@ extern "C" void sim(){
 	create("sim");
 	for(int i = 0; i < numOfCars; i++){
 		car(i);
+        printf("car %d created", i);
 	}
 	hold(SIMUNIT);
 }
@@ -74,6 +75,8 @@ void car(int index){
                 isCellOccupied[0] = 1;
                 isCellOccupied[1] = 1;
                 speedForCar[index] = 1;
+                
+                printf("Car %d placed on road.", (index + 1))
             }
 		}
         else{
