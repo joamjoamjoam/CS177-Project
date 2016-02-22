@@ -329,7 +329,8 @@ void car(int index){
                             isCellOccupied[movingSpace] = speedForCar[index];
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
-                            
+                        printf("full speed acheived at cell %d", head);
+                        
                             hold(.25);
                         break;
                 }
