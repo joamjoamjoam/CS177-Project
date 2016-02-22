@@ -12,7 +12,6 @@
 // each cell is half of a car length space occupied by a car = 2 cells
 
 facility_set road("road",120);
-double timeToWait[120];
 
 
 // when a car occupies a cell it will put its speed into all cells it occupies
@@ -27,11 +26,13 @@ void car(int index);  // set up car processes
 
 int nextCell(int curCell);
 
+void initArrays();
 void finalReport();
 void snapshot();
 
 extern "C" void sim(){
 	create("sim");
+    initArrays();
     printf("enter for\n");
 	for(int i = 0; i < numOfCars; i++){
 		car(i);
@@ -43,7 +44,17 @@ extern "C" void sim(){
 
 void finalReport(){
 	
+}
 
+void initArrays(){
+    for (int i = 0; i <= 120; i++) {
+        isCellOccupied[i] = 0;
+        
+        if (i < 60) {
+            carStepsForCar[i] = 0;
+            speedForCar[i] = 0;
+        }
+    }
 }
 
 void snapshot(){
