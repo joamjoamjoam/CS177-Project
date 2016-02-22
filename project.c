@@ -315,7 +315,7 @@ void car(int index){
                 }
             }
         }
-        snapshot();
+        //snapshot();
     }
 }
 
