@@ -168,7 +168,6 @@ void car(int index){
     while(1){
         //printf("Here");
         if(!carOnRoad){
-            printf("Here car not");
             // previous 5 cells are free car is free to enter roadway
             carOnRoad = true;
 
@@ -188,14 +187,12 @@ void car(int index){
             
         }
         else{
-            printf("Here car is");
             // car is on road
             
             // look ahead to see what if I should accelerate or decelerate or stay the same.
             
             // the 4 cell look ahead will determine if we accelerate or decelerate
             
-            printf("Here");
             // lookahead
             obstructionDetected = false;
             switch (speedForCar[index]) {
@@ -221,28 +218,28 @@ void car(int index){
                 default:
                     break;
             }
-            /*for (int i = 0; i < monitoringCarLengths; i++) {
-                if (isCellOccupied[movingSpace + i + 1] && speedForCar[index] != 1) {
+            for (int i = 0; i < monitoringCarLengths; i++) {
+                if (isCellOccupied[nextCell(movingSpace + i)] && speedForCar[index] != 1) {
                     obstructionDetected = true;
                     //obstruction found
                     printf("decelerate detected");
                     shouldAccelerate = false;
                     
-                    closestObstructionSpeed = isCellOccupied[movingSpace + i + 1];
+                    closestObstructionSpeed = isCellOccupied[nextCell(movingSpace + i)];
                     
                     break;
                     
                 }
-                else if(speedForCar[index] == 1 && isCellOccupied[head + 1]){
+                else if(speedForCar[index] == 1 && isCellOccupied[nextCell(head)]){
                     obstructionDetected = true;
                     //obstruction found
                     printf("decelerate detected");
                     shouldAccelerate = false;
                     
-                    closestObstructionSpeed = isCellOccupied[head + 1];
+                    closestObstructionSpeed = isCellOccupied[nextCell(head)];
                     break;
                 }
-            }*/
+            }
             
             if (!obstructionDetected) {
                 shouldAccelerate = true;
@@ -263,16 +260,12 @@ void car(int index){
                             road[nextCell(head)].reserve();
                             movingSpace = nextCell(head);
                             isCellOccupied[movingSpace] = speedForCar[index];
-                            printf("Here");
                             hold(1.5);
-                            printf("Here");
                         }
                         else if (waitForAccelerate == 1) {
                             waitForAccelerate = 1;
-                            printf("Here");
                             road[tail].release();
                             isCellOccupied[tail] = 0;
-                            printf("Here");
                             road[nextCell(movingSpace)].reserve();
                             
                             
@@ -502,7 +495,6 @@ void car(int index){
                 }
             }
             
-            printf("Here");
             if (!shouldAccelerate) {
                 // lookout is not clear decelerate
                 if (!reactionTimeElapsed) {
@@ -654,8 +646,7 @@ void car(int index){
                 
             }
         }
-        //printf("Here");
-        //snapshot();
+        snapshot();
     }
 }
 
