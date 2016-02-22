@@ -60,7 +60,7 @@ void initArrays(){
 
 void snapshot(){
     
-    printf("---------------------------Snapshot-------------------------------\n");
+    printf("---------------------------Snapshot------------------------------- clock = %.2f\n", clock);
     
     for(int i = 0; i < 20; i++){
         printf("%d ",i);
