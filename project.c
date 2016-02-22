@@ -22,24 +22,32 @@ int isCellOccupied[120];
 // Since each car occupies at least 2 cells thenthe max amount of cars allowed is 120/2 = 60 cars
 int carStepsForCar[60];
 int speedForCar[60];
+int state;
+// max is 60
 int numOfCars = 1;
+int initCarsHelper = 119;
+int tails[60];
+int heads[60];
 void car(int index);  // set up car processes
+void streetLight();
 
 int nextCell(int curCell);
 
 void initArrays();
+void initCars();
 void finalReport();
 void snapshot();
 
 extern "C" void sim(){
     create("sim");
     initArrays();
-    printf("enter for\n");
+    initCars();
+    //streetLight();
+    
     for(int i = 0; i < numOfCars; i++){
         car(i);
         printf("car %d created\n", i);
     }
-    printf("enter hold\n");
     hold(SIMUNIT);
 }
 
@@ -58,20 +66,32 @@ void initArrays(){
     }
 }
 
+void initCars(){
+    for (int i = 0; i < numOfCars; i++) {
+        tails[i] = initCarsHelper - 1;
+        heads[i] = initCarsHelper;
+        isCellOccupied[initCarsHelper -1] = 1;
+        isCellOccupied[initCarsHelper] = 1;
+        speedForCar[i] = 1;
+        initCarsHelper -= 2;
+    }
+}
+
+
 void snapshot(){
     
-    printf("---------------------------Snapshot------------------------------- clock = %.2f\n", clock);
+    printf("---------------------------Snapshot------------------------------- clock = %.2f state = %d\n", clock, state);
     
-    for(int i = 0; i < 20; i++){
+    for(int i = 0; i < 120; i++){
         printf("%d ",i);
         /*if(isCellOccupied[i]){
-            printf("Cell %d Occupied at time %.1f\n", i,clock);
-        }*/
+         printf("Cell %d Occupied at time %.1f\n", i,clock);
+         }*/
     }
     printf("\n");
     for(int i = 0; i < 20; i++){
         if (i < 10) {
-                printf("%d ",isCellOccupied[i]);
+            printf("%d ",isCellOccupied[i]);
         }
         else{
             printf("%d  ", isCellOccupied[i]);
@@ -88,6 +108,50 @@ int nextCell(int curCell){
     return (curCell + 1) % 120;
 }
 
+void streetLight(){
+    create("streetLight");
+    bool allowedToSwitch = true;
+    //0 = red
+    //1 = yellow
+    //2 = green
+    
+    while (1) {
+        switch (state) {
+            case 0:
+                while (!allowedToSwitch) {
+                    //wait until 118 and 119 is clear
+                    if (!isCellOccupied[118] && !isCellOccupied[119]) {
+                        allowedToSwitch = true;
+                    }
+                }
+                isCellOccupied[118] = 1;
+                isCellOccupied[119] = 1;
+                road[118].reserve();
+                road[119].reserve();
+                hold(uniform(30,90));
+                state = 2;
+                
+                break;
+            case 1:
+                hold(10);
+                state = 0;
+                break;
+            case 2:
+                isCellOccupied[118] = 0;
+                isCellOccupied[119] = 0;
+                road[118].release();
+                road[119].release();
+                hold(expntl(120));
+                state = 1;
+                break;
+                
+            default:
+                break;
+        }
+        snapshot();
+    }
+}
+
 void car(int index){
     bool carOnRoad = false;
     bool shouldAccelerate = false;
@@ -97,44 +161,93 @@ void car(int index){
     bool reactionTimeElapsed = false;
     int tail,head,movingSpace;
     int closestObstructionSpeed = 6;
+    bool obstructionDetected = false;
+    int monitoringCarLengths = 0;
+    char processName[100];
     create("car");
     while(1){
+        //printf("Here");
         if(!carOnRoad){
-            //place car on road at cell 0,1 with speed 0 if there is space
-            if (!isCellOccupied[119] && !isCellOccupied[118] && !isCellOccupied[117] && !isCellOccupied[116]  && !isCellOccupied[115]) {
-                // previous 5 cells are free car is free to enter roadway
-                carOnRoad = true;
-                road[0].reserve();
-                road[1].reserve();
-                tail = 0;
-                head = 1;
-                isCellOccupied[0] = 1;
-                isCellOccupied[1] = 1;
-                speedForCar[index] = 1;
-                
-                printf("Car %d placed on road.\n", index);
-            }
-            else{
-                printf("Car %d not placed on road\n", index);
-            }
+            printf("Here car not");
+            // previous 5 cells are free car is free to enter roadway
+            carOnRoad = true;
+
+            tail = initCarsHelper - 1;
+            head = initCarsHelper;
+            isCellOccupied[initCarsHelper -1] = 1;
+            isCellOccupied[initCarsHelper] = 1;
+            speedForCar[index] = 1;
+            road[tail].reserve();
+            road[head].reserve();
+            
+            initCarsHelper -= 2;
+            
+            
+            
+            //printf("Car %d placed on road. with tail = %d and head = %d\n", index, tail, head);
+            
         }
         else{
+            printf("Here car is");
             // car is on road
             
             // look ahead to see what if I should accelerate or decelerate or stay the same.
             
-            if (head < 11/* && lookahead is clear*/) {
+            // the 4 cell look ahead will determine if we accelerate or decelerate
+            
+            printf("Here");
+            // lookahead
+            obstructionDetected = false;
+            switch (speedForCar[index]) {
+                case 1:
+                    monitoringCarLengths = 1;
+                    break;
+                case 2:
+                    monitoringCarLengths = 1;
+                    break;
+                case 3:
+                    monitoringCarLengths = 2;
+                    break;
+                case 4:
+                    monitoringCarLengths = 2;
+                    break;
+                case 5:
+                    monitoringCarLengths = 3;
+                    break;
+                case 6:
+                    monitoringCarLengths = 4;
+                    break;
+                    
+                default:
+                    break;
+            }
+            /*for (int i = 0; i < monitoringCarLengths; i++) {
+                if (isCellOccupied[movingSpace + i + 1] && speedForCar[index] != 1) {
+                    obstructionDetected = true;
+                    //obstruction found
+                    printf("decelerate detected");
+                    shouldAccelerate = false;
+                    
+                    closestObstructionSpeed = isCellOccupied[movingSpace + i + 1];
+                    
+                    break;
+                    
+                }
+                else if(speedForCar[index] == 1 && isCellOccupied[head + 1]){
+                    obstructionDetected = true;
+                    //obstruction found
+                    printf("decelerate detected");
+                    shouldAccelerate = false;
+                    
+                    closestObstructionSpeed = isCellOccupied[head + 1];
+                    break;
+                }
+            }*/
+            
+            if (!obstructionDetected) {
                 shouldAccelerate = true;
                 reactionTimeElapsed = false;
-                // avoid collisions here
             }
-            else{
-                printf("decelerate detected");
-                shouldAccelerate = false;
-                //obstruction found
-                //closestObstructionSpeed =
-            }
-            
             // for now we just accelerate
             
             if (shouldAccelerate) {
@@ -143,21 +256,23 @@ void car(int index){
                         // start moving
                         if (waitForAccelerate == 0) {
                             waitForAccelerate++;
-                        
-                            speedForCar[index] = 1;
+                            
                             isCellOccupied[tail] = speedForCar[index];
+                            
                             isCellOccupied[head] = speedForCar[index];
                             road[nextCell(head)].reserve();
                             movingSpace = nextCell(head);
                             isCellOccupied[movingSpace] = speedForCar[index];
+                            printf("Here");
                             hold(1.5);
+                            printf("Here");
                         }
                         else if (waitForAccelerate == 1) {
                             waitForAccelerate = 1;
-                            
+                            printf("Here");
                             road[tail].release();
                             isCellOccupied[tail] = 0;
-                            
+                            printf("Here");
                             road[nextCell(movingSpace)].reserve();
                             
                             
@@ -387,7 +502,7 @@ void car(int index){
                 }
             }
             
-            
+            printf("Here");
             if (!shouldAccelerate) {
                 // lookout is not clear decelerate
                 if (!reactionTimeElapsed) {
@@ -406,135 +521,141 @@ void car(int index){
                 
                 // if stopping completely set waitForAccelerate to 0 else set it to 1
                 
-                
-                switch (speedForCar[index]) {
-                    case 1:
-                        // stopped
-                        speedForCar[index] = 1;
-                        isCellOccupied[tail] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        waitForAccelerate = 0;
-                        break;
-                    case 2:
-                        waitForAccelerate = 1;
-                        
-                        road[tail].release();
-                        isCellOccupied[tail] = 0;
-                        
-                        road[nextCell(movingSpace)].reserve();
-                        
-                        
-                        // shift car into spaces
-                        tail = head;
-                        head = movingSpace;
-                        movingSpace = -1;
-                        
-                        speedForCar[index] -= 1;
-                        
-                        isCellOccupied[head] = speedForCar[index];
-                        isCellOccupied[tail] = speedForCar[index];
-                        
-                        
-                        hold(1.5);
-                        break;
-                    case 3:
-                        waitForAccelerate = 1;
-                        
-                        road[tail].release();
-                        isCellOccupied[tail] = 0;
-                        
-                        road[nextCell(movingSpace)].reserve();
-                        
-                        
-                        // shift car into spaces
-                        tail = head;
-                        head = movingSpace;
-                        movingSpace = nextCell(movingSpace);
-                        
-                        speedForCar[index] -= 1;
-                        
-                        isCellOccupied[movingSpace] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        isCellOccupied[tail] = speedForCar[index];
-                        
-                        
-                        hold((11/12));
-                        
-                        break;
-                    case 4:
-                        waitForAccelerate = 1;
-                        
-                        road[tail].release();
-                        isCellOccupied[tail] = 0;
-                        
-                        road[nextCell(movingSpace)].reserve();
-                        
-                        
-                        // shift car into spaces
-                        tail = head;
-                        head = movingSpace;
-                        movingSpace = nextCell(movingSpace);
-                        
-                        speedForCar[index] -= 1;
-                        
-                        isCellOccupied[movingSpace] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        isCellOccupied[tail] = speedForCar[index];
-                        
-                        
-                        hold(.5);
-                        break;
-                    case 5:
-                        waitForAccelerate = 1;
-                        
-                        road[tail].release();
-                        isCellOccupied[tail] = 0;
-                        
-                        road[nextCell(movingSpace)].reserve();
-                        
-                        
-                        // shift car into spaces
-                        tail = head;
-                        head = movingSpace;
-                        movingSpace = nextCell(movingSpace);
-                        
-                        speedForCar[index] -= 1;
-                        
-                        isCellOccupied[movingSpace] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        isCellOccupied[tail] = speedForCar[index];
-                        
-                        
-                        hold(.333);
-                        
-                        break;
-                    case 6:
-                        waitForAccelerate = 1;
-                        
-                        road[tail].release();
-                        isCellOccupied[tail] = 0;
-                        
-                        road[nextCell(movingSpace)].reserve();
-                        
-                        
-                        // shift car into spaces
-                        tail = head;
-                        head = movingSpace;
-                        movingSpace = nextCell(movingSpace);
-                        
-                        speedForCar[index] -= 1;
-                        
-                        isCellOccupied[movingSpace] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        isCellOccupied[tail] = speedForCar[index];
-                        
-                        
-                        hold(.25);
-                        break;
+                if (speedForCar[index] > chosenNewSpeed) {
+                    switch (speedForCar[index]) {
+                        case 1:
+                            // stopped
+                            speedForCar[index] = 1;
+                            isCellOccupied[tail] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            waitForAccelerate = 0;
+                            break;
+                        case 2:
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = -1;
+                            
+                            speedForCar[index] -= 1;
+                            
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            
+                            hold(1.5);
+                            break;
+                        case 3:
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = nextCell(movingSpace);
+                            
+                            speedForCar[index] -= 1;
+                            
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            
+                            hold((11/12));
+                            
+                            break;
+                        case 4:
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = nextCell(movingSpace);
+                            
+                            speedForCar[index] -= 1;
+                            
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            
+                            hold(.5);
+                            break;
+                        case 5:
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = nextCell(movingSpace);
+                            
+                            speedForCar[index] -= 1;
+                            
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            
+                            hold(.333);
+                            
+                            break;
+                        case 6:
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = nextCell(movingSpace);
+                            
+                            speedForCar[index] -= 1;
+                            
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            
+                            hold(.25);
+                            break;
+                    }
                 }
+                else{
+                    printf("target speed reached");
+                }
+                
             }
         }
-        snapshot();
+        //printf("Here");
+        //snapshot();
     }
 }
 
