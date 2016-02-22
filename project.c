@@ -171,6 +171,7 @@ void car(int index){
                             isCellOccupied[tail] = speedForCar[index];
                             
                             hold(1.5);
+                        }
                         
                         break;
                     case 2:
