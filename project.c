@@ -79,7 +79,7 @@ void car(int index){
         printf("begin while\n");
 		if(!carOnRoad){
 			//place car on road at cell 0,1 with speed 0 if there is space
-            if (!isCellOccupied[119] && !isCellOccupied[118] && !isCellOccupied[117] && isCellOccupied[116]  && !isCellOccupied[115]) {
+            if (!isCellOccupied[119] && !isCellOccupied[118] && !isCellOccupied[117] && !isCellOccupied[116]  && !isCellOccupied[115]) {
                 // previous 5 cells are free car is free to enter roadway
                 carOnRoad = true;
                 road[0].reserve();
