@@ -82,7 +82,7 @@ void car(int index){
                 printf("Car %d placed on road.\n", index);
             }
             else{
-                printf("Car %d not placed on road\n", index)
+                printf("Car %d not placed on road\n", index);
             }
 		}
         else{
