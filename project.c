@@ -44,7 +44,6 @@ void finalReport(){
 }
 
 void snapshot(){
-	printf("car cells = ");
 	for(int i = 0; i < 120; i++){
 		if(isCellOccupied[i]){
 			printf("Cell %d Occupied at time %.1f", i,clock);
