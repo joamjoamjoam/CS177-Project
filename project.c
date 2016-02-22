@@ -166,12 +166,12 @@ void car(int index){
                             head = movingSpace;
                             movingSpace = nextCell(movingSpace);
                             
+                            speedForCar[index] = 2;
                             
                             isCellOccupied[movingSpace] = speedForCar[index];
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
                             
-                            speedForCar[index] = 2;
                             hold(1.5);
                         }
                         
