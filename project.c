@@ -34,7 +34,7 @@ extern "C" void sim(){
 	create("sim");
     printf("enter for");
 	for(int i = 0; i < numOfCars; i++){
-		car(i);
+		//car(i);
         printf("car %d created", i);
 	}
     printf("enter hold");
