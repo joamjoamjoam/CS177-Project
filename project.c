@@ -36,6 +36,7 @@ extern "C" void sim(){
 		car(i);
         printf("car %d created", i);
 	}
+    printf("enter hold");
 	hold(SIMUNIT);
 }
 
