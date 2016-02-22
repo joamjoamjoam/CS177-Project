@@ -110,7 +110,7 @@ void car(int index){
             
             // look ahead to see what if I should accelerate or decelerate or stay the same.
             
-            if (nose < 11/* && lookahead is clear*/) {
+            if (head < 11/* && lookahead is clear*/) {
                 shouldAccelerate = true;
                 reactionTimeElapsed = false;
                 // avoid collisions here
@@ -357,7 +357,7 @@ void car(int index){
                     decelerateTo = 1;
                 }
                 else{
-                    decelerateTo = speedForCar[index] - 2
+                    decelerateTo = speedForCar[index] - 2;
                 }
                 speedOfCarInFront = closestObstructionSpeed;
                 
