@@ -42,7 +42,7 @@ extern "C" void sim(){
     create("sim");
     initArrays();
     initCars();
-    //streetLight();
+    streetLight();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
@@ -82,7 +82,7 @@ void snapshot(){
     
     printf("---------------------------Snapshot------------------------------- clock = %.2f state = %d\n", clock, state);
     
-    for(int i = 0; i < 120; i++){
+    for(int i = 0; i < 20; i++){
         printf("%d ",i);
         /*if(isCellOccupied[i]){
          printf("Cell %d Occupied at time %.1f\n", i,clock);
