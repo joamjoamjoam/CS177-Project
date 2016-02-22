@@ -70,7 +70,7 @@ void snapshot(){
     }
     printf("\n");
     for(int i = 0; i < 20; i++){
-        printf("%d \n",isCellOccupied[i]);
+        printf("%d ",isCellOccupied[i]);
         /*if(isCellOccupied[i]){
          printf("Cell %d Occupied at time %.1f\n", i,clock);
          }*/
