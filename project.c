@@ -129,6 +129,7 @@ void car(int index){
                 // avoid collisions here
             }
             else{
+                printf("decelerate detected");
                 shouldAccelerate = false;
                 //obstruction found
                 //closestObstructionSpeed =
