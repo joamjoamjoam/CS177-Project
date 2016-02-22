@@ -32,12 +32,12 @@ void snapshot();
 
 extern "C" void sim(){
 	create("sim");
-    printf("enter for");
+    printf("enter for\n");
 	for(int i = 0; i < numOfCars; i++){
-		//car(i);
-        printf("car %d created", i);
+		car(i);
+        printf("car %d created\n", i);
 	}
-    printf("enter hold");
+    printf("enter hold\n");
 	hold(SIMUNIT);
 }
 
@@ -65,6 +65,7 @@ void car(int index){
     int tail,head,movingSpace;
 	create("car");
 	while(1){
+        printf("begin while\n");
 		if(!carOnRoad){
 			//place car on road at cell 0,1 with speed 0 if there is space
             if (!isCellOccupied[119] && !isCellOccupied[118] && !isCellOccupied[117] && isCellOccupied[116]  && !isCellOccupied[115]) {
@@ -78,7 +79,7 @@ void car(int index){
                 isCellOccupied[1] = 1;
                 speedForCar[index] = 1;
                 
-                printf("Car %d placed on road.", (index + 1));
+                printf("Car %d placed on road.\n", (index + 1));
             }
 		}
         else{
