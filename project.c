@@ -70,7 +70,7 @@ void snapshot(){
     }
     printf("\n");
     for(int i = 0; i < 20; i++){
-        printf("%d ",isCellOccupied[i]);
+        printf("%d \n",isCellOccupied[i]);
         /*if(isCellOccupied[i]){
          printf("Cell %d Occupied at time %.1f\n", i,clock);
          }*/
@@ -123,6 +123,7 @@ void car(int index){
                 // avoid collisions here
             }
             else{
+                shouldAccelerate = false;
                 //obstruction found
                 //closestObstructionSpeed =
             }
@@ -359,6 +360,7 @@ void car(int index){
                 // lookout is not clear decelerate
                 if (!reactionTimeElapsed) {
                     hold(1);
+                    reactionTimeElapsed =true;
                 }
                 if (speedForCar[index] == 2) {
                     decelerateTo = 1;
