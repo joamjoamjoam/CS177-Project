@@ -141,15 +141,37 @@ void car(int index){
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
+                        if (waitForAccelerate == 0) {
+                            waitForAccelerate++;
                         
-                        speedForCar[index] = 2;
-                        isCellOccupied[tail] = speedForCar[index];
-                        isCellOccupied[head] = speedForCar[index];
-                        road[nextCell(head)].reserve();
-                        movingSpace = nextCell(head);
-                        isCellOccupied[movingSpace] = speedForCar[index];
-                        waitForAccelerate++;
-                        hold(1.5);
+                            speedForCar[index] = 1;
+                            isCellOccupied[tail] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            road[nextCell(head)].reserve();
+                            movingSpace = nextCell(head);
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            hold(1.5);
+                        }
+                        else if (waitForAccelerate == 1) {
+                            waitForAccelerate = 1;
+                            
+                            road[tail].release();
+                            isCellOccupied[tail] = 0;
+                            
+                            road[nextCell(movingSpace)].reserve();
+                            
+                            
+                            // shift car into spaces
+                            tail = head;
+                            head = movingSpace;
+                            movingSpace = nextCell(movingSpace);
+                            
+                            isCellOccupied[movingSpace] = speedForCar[index];
+                            isCellOccupied[head] = speedForCar[index];
+                            isCellOccupied[tail] = speedForCar[index];
+                            
+                            hold(1.5);
+                        
                         break;
                     case 2:
                         if (waitForAccelerate == 1) {
@@ -170,7 +192,7 @@ void car(int index){
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
                             
-                            hold(1.5);
+                            hold((11/12));
                         }
                         else if(waitForAccelerate == 2){
                             waitForAccelerate = 0;
@@ -216,7 +238,7 @@ void car(int index){
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
                             
-                            hold((11/12));
+                            hold(.5);
                         }
                         else if(waitForAccelerate == 2){
                             waitForAccelerate = 0;
@@ -263,7 +285,7 @@ void car(int index){
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
                             
-                            hold(.5);
+                            hold(.333);
                         }
                         else if(waitForAccelerate == 2){
                             waitForAccelerate = 0;
@@ -310,7 +332,7 @@ void car(int index){
                             isCellOccupied[head] = speedForCar[index];
                             isCellOccupied[tail] = speedForCar[index];
                             
-                            hold(.333);
+                            hold(.25);
                         }
                         else if(waitForAccelerate == 2){
                             waitForAccelerate = 0;
