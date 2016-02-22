@@ -60,7 +60,7 @@ void initArrays(){
 void snapshot(){
 	for(int i = 0; i < 120; i++){
 		if(isCellOccupied[i]){
-			printf("Cell %d Occupied at time %.1f", i,clock);
+			printf("Cell %d Occupied at time %.1f\n", i,clock);
 		}
 	}
 }
@@ -76,7 +76,6 @@ void car(int index){
     int tail,head,movingSpace;
 	create("car");
 	while(1){
-        printf("begin while\n");
 		if(!carOnRoad){
 			//place car on road at cell 0,1 with speed 0 if there is space
             if (!isCellOccupied[119] && !isCellOccupied[118] && !isCellOccupied[117] && !isCellOccupied[116]  && !isCellOccupied[115]) {
@@ -332,7 +331,7 @@ void car(int index){
                 }
             }
         }
-        //snapshot();
+        snapshot();
     }
 }
 
