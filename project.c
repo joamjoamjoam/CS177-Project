@@ -79,7 +79,10 @@ void car(int index){
                 isCellOccupied[1] = 1;
                 speedForCar[index] = 1;
                 
-                printf("Car %d placed on road.\n", (index + 1));
+                printf("Car %d placed on road.\n", index);
+            }
+            else{
+                printf("Car %d not placed on road\n", index)
             }
 		}
         else{
