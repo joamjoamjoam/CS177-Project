@@ -319,7 +319,7 @@ void car(int index){
             // for now we just accelerate
             printf("Here %d %d", index, targetSpeedForCar[index]);
             bool d = speedForCar[index] < targetSpeedForCar[index];
-            if (shouldAccelerate) {
+            if (shouldAccelerate && d) {
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
@@ -672,7 +672,10 @@ void car(int index){
                         hold(1);
                         break;
                 }
-                
+              
+            }
+            else{
+                printf("other");
             }
             
             if(!shouldAccelerate) {
