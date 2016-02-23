@@ -128,8 +128,7 @@ void calcTargetSpeed(){
         
         for (int i = 0; i < numOfCars; i++) {
             printf("%d", i);
-            int random = random_int(2,6);
-            targetSpeedForCar[i] = random;
+            targetSpeedForCar[i] = 6;
         }
         //hold(uniform(60,120));
     //}
@@ -316,10 +315,7 @@ void car(int index){
                 shouldAccelerate = true;
                 reactionTimeElapsed = false;
             }
-            // for now we just accelerate
-            printf("Here %d %d", index, targetSpeedForCar[index]);
-            bool d = speedForCar[index] < targetSpeedForCar[index];
-            if (shouldAccelerate && d) {
+            if (shouldAccelerate && (speedForCar[index] < targetSpeedForCar[index])) {
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
