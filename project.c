@@ -25,9 +25,6 @@ int speedForCar[60];
 int state;
 // max is 60
 int numOfCars = 20;
-int initCarsHelper = 119;
-int tails[60];
-int heads[60];
 void car(int index);  // set up car processes
 void streetLight();
 
@@ -41,7 +38,6 @@ void snapshot();
 extern "C" void sim(){
     create("sim");
     initArrays();
-    //initCars();
     streetLight();
     
     for(int i = 0; i < numOfCars; i++){
@@ -63,17 +59,6 @@ void initArrays(){
             carStepsForCar[i] = 0;
             speedForCar[i] = 0;
         }
-    }
-}
-
-void initCars(){
-    for (int i = 0; i < numOfCars; i++) {
-        tails[i] = initCarsHelper - 1;
-        heads[i] = initCarsHelper;
-        isCellOccupied[initCarsHelper -1] = 1;
-        isCellOccupied[initCarsHelper] = 1;
-        speedForCar[i] = 1;
-        initCarsHelper -= 2;
     }
 }
 
@@ -164,7 +149,7 @@ void car(int index){
     int closestObstructionSpeed = 6;
     bool obstructionDetected = false;
     int monitoringCarLengths = 0;
-    char processName[100];
+    int initCarsHelper = 119
     create("car");
     while(1){
         //printf("Here");
@@ -172,10 +157,11 @@ void car(int index){
             // previous 5 cells are free car is free to enter roadway
             carOnRoad = true;
 
-            tail = initCarsHelper - 1;
-            head = initCarsHelper;
-            isCellOccupied[initCarsHelper -1] = 1;
-            isCellOccupied[initCarsHelper] = 1;
+            head = initCarsHelper - (2 * index);
+            tail = head - 1;
+            
+            isCellOccupied[head] = 1;
+            isCellOccupied[tail] = 1;
             speedForCar[index] = 1;
             road[tail].reserve();
             road[head].reserve();
