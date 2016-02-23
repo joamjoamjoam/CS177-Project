@@ -49,7 +49,7 @@ extern "C" void sim(){
     //checkForCollison();
     
     for(int i = 0; i < numOfCars; i++){
-        //car(i);
+        car(i);
         printf("car %d created\n", i);
     }
     hold(SIMUNIT);
@@ -690,7 +690,7 @@ void car(int index){
                 
                 int chosenNewSpeed = max(decelerateTo,speedOfCarInFront);
                 
-                chosenNewSpeed = min(targetSpeedForCar[index],chosenNewSpeed);
+                //chosenNewSpeed = min(targetSpeedForCar[index],chosenNewSpeed);
                 
                 // if stopping completely set waitForAccelerate to 0 else set it to 1
                 
