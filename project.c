@@ -38,10 +38,10 @@ void snapshot();
 extern "C" void sim(){
     create("sim");
     initArrays();
-    streetLight();
+    //streetLight();
     
     for(int i = 0; i < numOfCars; i++){
-        //car(i);
+        car(i);
         printf("car %d created\n", i);
     }
     hold(SIMUNIT);
@@ -136,7 +136,6 @@ void streetLight(){
             default:
                 break;
         }
-        snapshot();
     }
 }
 
