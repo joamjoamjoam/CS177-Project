@@ -148,7 +148,7 @@ void initArrays(){
 
 void snapshot(){
     
-    printf("---------------------------Snapshot------------------------------- clock = %.2f state = %d var = %d\n", clock, state,isCellOccupied[118]);
+    printf("---------------------------Snapshot------------------------------- clock = %.2f state = %d var = %d  %d\n", clock, state,speedForCar[0],targetSpeedForCar[0]);
     
     for(int i = 0; i < 20; i++){
         printf("%d ",i);
