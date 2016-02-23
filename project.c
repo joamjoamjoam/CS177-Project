@@ -510,6 +510,7 @@ void car(int index){
                             isCellOccupied[tail] = speedForCar[index];
                             isCellOccupied[head] = speedForCar[index];
                             waitForAccelerate = 0;
+                            hold(1.5);
                             break;
                         case 2:
                             waitForAccelerate = 1;
@@ -639,6 +640,7 @@ void car(int index){
                             isCellOccupied[tail] = speedForCar[index];
                             isCellOccupied[head] = speedForCar[index];
                             waitForAccelerate = 0;
+                            hold(1.5);
                             break;
                         case 2:
                             road[tail].release();
