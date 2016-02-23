@@ -292,7 +292,7 @@ void car(int index){
                 if (isCellOccupied[nextCell(movingSpace + i)] && speedForCar[index] != 1) {
                     obstructionDetected = true;
                     //obstruction found
-                    printf("decelerate detected 1");
+                    //printf("decelerate detected 1");
                     shouldAccelerate = false;
                     
                     closestObstructionSpeed = isCellOccupied[nextCell(movingSpace + i)];
@@ -303,7 +303,7 @@ void car(int index){
                 else if(speedForCar[index] == 1 && isCellOccupied[nextCell(head)]){
                     obstructionDetected = true;
                     //obstruction found
-                    printf("decelerate detected 2");
+                    //printf("decelerate detected 2");
                     shouldAccelerate = false;
                     
                     closestObstructionSpeed = isCellOccupied[nextCell(head)];
@@ -714,7 +714,7 @@ void car(int index){
                     }
                 }
                 else{
-                    printf("target speed reached");
+                    //printf("target speed reached");
                     
                     switch (speedForCar[index]) {
                         case 1:
