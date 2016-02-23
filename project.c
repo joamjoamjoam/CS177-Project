@@ -3,6 +3,8 @@
 
 #include "cpp.h"
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 #include <math.h>
 
 #define epsilon 1.e-20
@@ -22,9 +24,10 @@ int isCellOccupied[120];
 // Since each car occupies at least 2 cells thenthe max amount of cars allowed is 120/2 = 60 cars
 int carStepsForCar[60];
 int speedForCar[60];
+int targetSpeedForCar[60]
 int state;
 // max is 60
-int numOfCars = 2;
+int numOfCars = 20;
 void car(int index);  // set up car processes
 void streetLight();
 
@@ -34,11 +37,14 @@ void initArrays();
 void initCars();
 void finalReport();
 void snapshot();
+void calcTargetSpeed();
+void checkForCollison();
 
 extern "C" void sim(){
     create("sim");
     initArrays();
     streetLight();
+    calcTargetSpeed();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
@@ -47,8 +53,25 @@ extern "C" void sim(){
     hold(SIMUNIT);
 }
 
+void checkForCollison(){
+    create("check for collision");
+    
+}
+
 void finalReport(){
     
+}
+
+void calcTargetSpeed(){
+    create("calcTargetSpeed");
+    while(1){
+        
+        for (int i =0; i < numOfCars; i++) {
+            srand(time(NULL));
+            targetSpeedForCar[i] = (rand() % 5) + 2;
+        }
+        hold(uniform(60,120));
+    }
 }
 
 void initArrays(){
@@ -58,6 +81,7 @@ void initArrays(){
         if (i < 60) {
             carStepsForCar[i] = 0;
             speedForCar[i] = 0;
+            
         }
     }
 }
@@ -232,7 +256,7 @@ void car(int index){
             }
             // for now we just accelerate
             
-            if (shouldAccelerate) {
+            if (shouldAccelerate && speedForCar[index] < targetSpeedForCar[index]) {
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
@@ -495,6 +519,8 @@ void car(int index){
                 speedOfCarInFront = closestObstructionSpeed;
                 
                 int chosenNewSpeed = max(decelerateTo,speedOfCarInFront);
+                
+                chosenNewSpeed = min(targetSpeedForCar[index],chosenNewSpeed);
                 
                 // if stopping completely set waitForAccelerate to 0 else set it to 1
                 
