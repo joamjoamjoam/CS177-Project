@@ -667,6 +667,7 @@ void car(int index){
                     default:
                         hold(1);
                         break;
+                }
                 
             }
             
