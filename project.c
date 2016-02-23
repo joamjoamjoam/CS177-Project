@@ -562,7 +562,7 @@ void car(int index){
                         break;
                 }
             }
-            else{
+            else if(speedForCar[index] == targetSpeedForCar[index]){
                 // target speed reached
                 switch (speedForCar[index]) {
                     case 1:
@@ -671,7 +671,7 @@ void car(int index){
                 
             }
             
-            if (!shouldAccelerate) {
+            if(!shouldAccelerate) {
                 // lookout is not clear decelerate
                 if (!reactionTimeElapsed) {
                     hold(1);
