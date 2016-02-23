@@ -318,7 +318,7 @@ void car(int index){
             }
             // for now we just accelerate
             
-            if (shouldAccelerate && speedForCar[index] < targetSpeedForCar[index]) {
+            if (shouldAccelerate && /*speedForCar[index] < targetSpeedForCar[index]*/) {
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
@@ -690,7 +690,7 @@ void car(int index){
                 
                 int chosenNewSpeed = max(decelerateTo,speedOfCarInFront);
                 
-                //chosenNewSpeed = min(targetSpeedForCar[index],chosenNewSpeed);
+                chosenNewSpeed = min(targetSpeedForCar[index],chosenNewSpeed);
                 
                 // if stopping completely set waitForAccelerate to 0 else set it to 1
                 
