@@ -46,7 +46,7 @@ extern "C" void sim(){
     initArrays();
     streetLight();
     calcTargetSpeed();
-    //checkForCollison();
+    checkForCollison();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
@@ -124,13 +124,13 @@ void finalReport(){
 
 void calcTargetSpeed(){
     create("calcTargetSpeed");
-    while(1){
+    //while(1){
         
         for (int i = 0; i < numOfCars; i++) {
             targetSpeedForCar[i] = random_int(2,6);
         }
-        hold(uniform(60,120));
-    }
+        //hold(uniform(60,120));
+    //}
 }
 
 void initArrays(){
