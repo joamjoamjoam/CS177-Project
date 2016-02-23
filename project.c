@@ -813,6 +813,10 @@ void car(int index){
                             isCellOccupied[tail] = speedForCar[index];
                             hold(.25);
                             break;
+                            
+                        default:
+                            hold(1);
+                            break;
                     }
                 }
                 
