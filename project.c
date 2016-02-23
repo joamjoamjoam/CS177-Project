@@ -39,7 +39,6 @@ void snapshot();
 void calcTargetSpeed();
 void checkForCollison();
 int prevCell(int index);
-int randomInt();
 bool collisionDetected = false;
 
 extern "C" void sim(){
@@ -122,28 +121,6 @@ void checkForCollison(){
 void finalReport(){
     
 }
-int randomInt(){
-    int random = 6;
-    switch (random) {
-        case 2:
-            return 2;
-            break;
-        case 3:
-            return 3;
-            break;
-        case 4:
-            return 4;
-            break;
-        case 5:
-            return 5;
-            break;
-        case 6:
-            return 6;
-            break;
-            
-    }
-    
-}
 
 void calcTargetSpeed(){
     create("calcTargetSpeed");
@@ -151,7 +128,7 @@ void calcTargetSpeed(){
         
         for (int i = 0; i < numOfCars; i++) {
             printf("%d", i);
-            targetSpeedForCar[i] = 2;
+            targetSpeedForCar[i] = random_int(3,6);
         }
         //hold(uniform(60,120));
     //}
