@@ -24,7 +24,7 @@ int carStepsForCar[60];
 int speedForCar[60];
 int state;
 // max is 60
-int numOfCars = 1;
+int numOfCars = 2;
 void car(int index);  // set up car processes
 void streetLight();
 
