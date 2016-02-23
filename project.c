@@ -318,7 +318,7 @@ void car(int index){
             }
             // for now we just accelerate
             
-            if (shouldAccelerate && speedForCar[index] < targetSpeedForCar[index]) {
+            if (shouldAccelerate && (speedForCar[index] < targetSpeedForCar[index])) {
                 switch (speedForCar[index]) {
                     case 1:
                         // start moving
