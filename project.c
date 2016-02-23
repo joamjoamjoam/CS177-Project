@@ -108,6 +108,7 @@ void streetLight(){
                     //wait until 118 and 119 is clear
                     if (!isCellOccupied[118] && !isCellOccupied[119]) {
                         allowedToSwitch = true;
+                        printf("stuck")
                     }
                 }
                 isCellOccupied[118] = 1;
