@@ -24,7 +24,7 @@ int carStepsForCar[60];
 int speedForCar[60];
 int state;
 // max is 60
-int numOfCars = 1;
+int numOfCars = 30;
 int initCarsHelper = 119;
 int tails[60];
 int heads[60];
@@ -114,6 +114,7 @@ void streetLight(){
     //0 = red
     //1 = yellow
     //2 = green
+    printf("street light created");
     
     while (1) {
         switch (state) {
@@ -159,7 +160,8 @@ void car(int index){
     int decelerateTo = 0;
     int speedOfCarInFront = 6;
     bool reactionTimeElapsed = false;
-    int tail,head,movingSpace;
+    int tail,head
+    int movingSpace = -1;
     int closestObstructionSpeed = 6;
     bool obstructionDetected = false;
     int monitoringCarLengths = 0;
@@ -183,7 +185,7 @@ void car(int index){
             
             
             
-            //printf("Car %d placed on road. with tail = %d and head = %d\n", index, tail, head);
+            printf("Car %d placed on road. with tail = %d and head = %d\n", index, tail, head);
             
         }
         else{
@@ -222,7 +224,7 @@ void car(int index){
                 if (isCellOccupied[nextCell(movingSpace + i)] && speedForCar[index] != 1) {
                     obstructionDetected = true;
                     //obstruction found
-                    printf("decelerate detected");
+                    printf("decelerate detected 1");
                     shouldAccelerate = false;
                     
                     closestObstructionSpeed = isCellOccupied[nextCell(movingSpace + i)];
@@ -233,7 +235,7 @@ void car(int index){
                 else if(speedForCar[index] == 1 && isCellOccupied[nextCell(head)]){
                     obstructionDetected = true;
                     //obstruction found
-                    printf("decelerate detected");
+                    printf("decelerate detected 2");
                     shouldAccelerate = false;
                     
                     closestObstructionSpeed = isCellOccupied[nextCell(head)];
