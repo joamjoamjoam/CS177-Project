@@ -128,7 +128,9 @@ void calcTargetSpeed(){
         
         for (int i = 0; i < numOfCars; i++) {
             printf("%d", i);
-            int rand = random_int(2,6);
+            int rand = rand();
+            rand = rand % 5;
+            rand+= 2;
             targetSpeedForCar[i] = rand;
         }
         //hold(uniform(60,120));
