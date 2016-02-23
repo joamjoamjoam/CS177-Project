@@ -152,9 +152,7 @@ void car(int index){
     int initCarsHelper = 117;
     create("car");
     while(1){
-        //printf("Here");
         if(!carOnRoad){
-            // previous 5 cells are free car is free to enter roadway
             carOnRoad = true;
 
             head = initCarsHelper - (2 * index);
@@ -240,7 +238,7 @@ void car(int index){
                         // start moving
                         if (waitForAccelerate == 0) {
                             waitForAccelerate++;
-                            
+                            speedForCar[index] = 2;
                             isCellOccupied[tail] = speedForCar[index];
                             
                             isCellOccupied[head] = speedForCar[index];
