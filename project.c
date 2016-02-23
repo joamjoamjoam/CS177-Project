@@ -38,7 +38,7 @@ void snapshot();
 extern "C" void sim(){
     create("sim");
     initArrays();
-    //streetLight();
+    streetLight();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
