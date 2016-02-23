@@ -317,7 +317,7 @@ void car(int index){
                 reactionTimeElapsed = false;
             }
             // for now we just accelerate
-            
+            printf("Here %d %d", index, targetSpeedForCar[index]);
             if (shouldAccelerate && (speedForCar[index] < targetSpeedForCar[index])) {
                 switch (speedForCar[index]) {
                     case 1:
