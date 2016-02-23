@@ -669,6 +669,9 @@ void car(int index){
                 }
               
             }
+            else{
+                hold(1);
+            }
             
             if(!shouldAccelerate) {
                 // lookout is not clear decelerate
