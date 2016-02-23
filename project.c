@@ -124,13 +124,13 @@ void finalReport(){
 
 void calcTargetSpeed(){
     create("calcTargetSpeed");
-    while(1){
+    //while(1){
         
         for (int i =0; i < numOfCars; i++) {
             targetSpeedForCar[i] = random(2,6);
         }
-        hold(uniform(60,120));
-    }
+        //hold(uniform(60,120));
+    //}
 }
 
 void initArrays(){
