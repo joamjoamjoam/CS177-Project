@@ -99,7 +99,7 @@ void streetLight(){
     //0 = red
     //1 = yellow
     //2 = green
-    printf("street light created");
+    printf("street light created\n");
     
     while (1) {
         switch (state) {
@@ -108,14 +108,12 @@ void streetLight(){
                     //wait until 118 and 119 is clear
                     if (!isCellOccupied[118] && !isCellOccupied[119]) {
                         allowedToSwitch = true;
-                        printf("stuck");
                     }
                 }
                 isCellOccupied[118] = 1;
                 isCellOccupied[119] = 1;
                 road[118].reserve();
                 road[119].reserve();
-                printf("before hold");
                 hold(uniform(30,90));
                 state = 2;
                 
