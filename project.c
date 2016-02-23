@@ -39,6 +39,7 @@ void snapshot();
 void calcTargetSpeed();
 void checkForCollison();
 int prevCell(int index);
+int randomInt();
 bool collisionDetected = false;
 
 extern "C" void sim(){
@@ -121,6 +122,9 @@ void checkForCollison(){
 void finalReport(){
     
 }
+int randomInt(){
+    return 6;
+}
 
 void calcTargetSpeed(){
     create("calcTargetSpeed");
@@ -141,7 +145,7 @@ void initArrays(){
         if (i < 60) {
             carStepsForCar[i] = 0;
             speedForCar[i] = 0;
-            targetSpeedForCar[i] = 0;
+            targetSpeedForCar[i] = randomInt;
             
         }
     }
