@@ -123,7 +123,7 @@ void finalReport(){
     
 }
 int randomInt(){
-    int random = random_int(2,6);
+    int random = 2;
     switch (random) {
         case 2:
             return 2;
