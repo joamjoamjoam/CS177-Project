@@ -149,7 +149,7 @@ void car(int index){
     int closestObstructionSpeed = 6;
     bool obstructionDetected = false;
     int monitoringCarLengths = 0;
-    int initCarsHelper = 119
+    int initCarsHelper = 119;
     create("car");
     while(1){
         //printf("Here");
