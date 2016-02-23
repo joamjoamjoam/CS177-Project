@@ -125,10 +125,10 @@ void streetLight(){
                         allowedToSwitch = true;
                     }
                 }
-                isCellOccupied[0] = 1;
-                isCellOccupied[1] = 1;
-                road[0].reserve();
-                road[1].reserve();
+                isCellOccupied[118] = 1;
+                isCellOccupied[119]] = 1;
+                road[118].reserve();
+                road[119].reserve();
                 hold(uniform(30,90));
                 state = 2;
                 
@@ -138,10 +138,10 @@ void streetLight(){
                 state = 0;
                 break;
             case 2:
-                isCellOccupied[0] = 0;
-                isCellOccupied[1] = 0;
-                road[0].release();
-                road[1].release();
+                isCellOccupied[118] = 0;
+                isCellOccupied[119] = 0;
+                road[118].release();
+                road[119].release();
                 hold(expntl(120));
                 state = 1;
                 break;
@@ -149,7 +149,6 @@ void streetLight(){
             default:
                 break;
         }
-        snapshot();
     }
 }
 
