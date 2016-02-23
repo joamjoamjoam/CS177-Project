@@ -136,6 +136,7 @@ void streetLight(){
             default:
                 break;
         }
+        snapshot();
     }
 }
 
