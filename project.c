@@ -46,7 +46,7 @@ extern "C" void sim(){
     initArrays();
     streetLight();
     calcTargetSpeed();
-    checkForCollison();
+    //checkForCollison();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
