@@ -24,7 +24,7 @@ int carStepsForCar[60];
 int speedForCar[60];
 int state;
 // max is 60
-int numOfCars = 30;
+int numOfCars = 20;
 int initCarsHelper = 119;
 int tails[60];
 int heads[60];
