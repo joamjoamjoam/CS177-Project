@@ -23,7 +23,7 @@ int isCellOccupied[120];
 // Since each car occupies at least 2 cells thenthe max amount of cars allowed is 120/2 = 60 cars
 int carStepsForCar[60];
 int speedForCar[60];
-long targetSpeedForCar[60];
+int targetSpeedForCar[60];
 int state;
 // max is 60
 int numOfCars = 20;
@@ -127,7 +127,7 @@ void calcTargetSpeed(){
     //while(1){
         
         for (int i = 0; i < numOfCars; i++) {
-            targetSpeedForCar[i] = random_int(2,6);
+            targetSpeedForCar[i] = (rand() % 5) + 2;
         }
         //hold(uniform(60,120));
     //}
