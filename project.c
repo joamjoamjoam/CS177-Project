@@ -566,7 +566,6 @@ void car(int index){
                         break;
                 }
             }
-            printf("there");
             else if(speedForCar[index] == targetSpeedForCar[index]){
                 // target speed reached
                 switch (speedForCar[index]) {
