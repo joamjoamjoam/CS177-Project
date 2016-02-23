@@ -41,7 +41,7 @@ extern "C" void sim(){
     streetLight();
     
     for(int i = 0; i < numOfCars; i++){
-        car(i);
+        //car(i);
         printf("car %d created\n", i);
     }
     hold(SIMUNIT);
