@@ -131,7 +131,7 @@ void calcTargetSpeed(){
             int random = rand();
             random = random % 5;
             random+= 2;
-            targetSpeedForCar[i] = rand;
+            targetSpeedForCar[i] = (int)rand;
         }
         //hold(uniform(60,120));
     //}
