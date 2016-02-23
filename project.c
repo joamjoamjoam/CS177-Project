@@ -39,23 +39,84 @@ void finalReport();
 void snapshot();
 void calcTargetSpeed();
 void checkForCollison();
+int prevCell(int index);
+bool collisionDetected = false;
 
 extern "C" void sim(){
     create("sim");
     initArrays();
     streetLight();
     calcTargetSpeed();
+    checkForCollison();
     
     for(int i = 0; i < numOfCars; i++){
         car(i);
         printf("car %d created\n", i);
     }
     hold(SIMUNIT);
+    if (collisionDetected) {
+        printf("Results Invalid Collision Detected.");
+    }
+    else{
+        printf("No Collisons detetected.");
+    }
+}
+
+int prevCell(int index){
+    if ((index - 1) < 0) {
+        return 119;
+    }
+    else{
+        return index - 1;
+    }
 }
 
 void checkForCollison(){
     create("check for collision");
     
+    int tmpPrev, tmpNext, tmpCurr, ones,twos,threes,fours,fives,sixes;
+    
+    while (1) {
+        ones = 0;
+        twos = 0;
+        threes = 0;
+        fours = 0;
+        fives = 0;
+        sixes = 0;
+        for (int i = 0; i < 120; i++) {
+            
+            switch (isCellOccupied[i]) {
+                case 0:
+                    
+                    break;
+                case 1:
+                    ones++;
+                    break;
+                case 2:
+                    twos++;
+                    break;
+                case 3:
+                    threes++;
+                    break;
+                case 4:
+                    fours++;
+                    break;
+                case 5:
+                    fives++;
+                    break;
+                case 6:
+                    sixes++;
+                    break;
+            }
+        }
+        if(!(ones % 2) && !(twos % 3) && !(threes % 3) && !(fours % 3) && !(fives % 3) && !(sixes % 3)){
+        }
+        else{
+            collisionDetected = true;
+            return;
+        }
+        hold(.2);
+    }
 }
 
 void finalReport(){
@@ -178,7 +239,7 @@ void car(int index){
     while(1){
         if(!carOnRoad){
             carOnRoad = true;
-
+            
             head = initCarsHelper - (2 * index);
             tail = head - 1;
             
@@ -654,7 +715,7 @@ void car(int index){
                 }
                 else{
                     printf("target speed reached");
-                
+                    
                     switch (speedForCar[index]) {
                         case 1:
                             // stopped
