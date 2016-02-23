@@ -126,7 +126,7 @@ void streetLight(){
                     }
                 }
                 isCellOccupied[118] = 1;
-                isCellOccupied[119]] = 1;
+                isCellOccupied[119] = 1;
                 road[118].reserve();
                 road[119].reserve();
                 hold(uniform(30,90));
