@@ -67,14 +67,14 @@ void snapshot(){
     
     printf("---------------------------Snapshot------------------------------- clock = %.2f state = %d\n", clock, state);
     
-    for(int i = -10; i < 20; i++){
+    for(int i = 0; i < 20; i++){
         printf("%d ",i);
         /*if(isCellOccupied[i]){
          printf("Cell %d Occupied at time %.1f\n", i,clock);
          }*/
     }
     printf("\n");
-    for(int i = -10; i < 20; i++){
+    for(int i = 0; i < 20; i++){
         if (i < 10) {
             printf("%d ",isCellOccupied[i]);
         }
@@ -115,6 +115,7 @@ void streetLight(){
                 isCellOccupied[119] = 1;
                 road[118].reserve();
                 road[119].reserve();
+                printf("before hold");
                 hold(uniform(30,90));
                 state = 2;
                 
