@@ -3,7 +3,6 @@
 
 #include "cpp.h"
 #include <string.h>
-#include <time.h>
 #include <stdlib.h>
 #include <math.h>
 
@@ -128,8 +127,7 @@ void calcTargetSpeed(){
     while(1){
         
         for (int i =0; i < numOfCars; i++) {
-            srand(time(NULL));
-            targetSpeedForCar[i] = (rand() % 5) + 2;
+            targetSpeedForCar[i] = random(5) + 2;
         }
         hold(uniform(60,120));
     }
