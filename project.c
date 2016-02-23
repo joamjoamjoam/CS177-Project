@@ -160,7 +160,7 @@ void car(int index){
     int decelerateTo = 0;
     int speedOfCarInFront = 6;
     bool reactionTimeElapsed = false;
-    int tail,head
+    int tail,head;
     int movingSpace = -1;
     int closestObstructionSpeed = 6;
     bool obstructionDetected = false;
