@@ -132,7 +132,7 @@ void calcTargetSpeed(){
         
         for (int i = 0; i < numOfCars; i++) {
             printf("%d", i);
-            targetSpeedForCar[i] = 6;
+            targetSpeedForCar[i] = randomInt();
         }
         //hold(uniform(60,120));
     //}
@@ -145,7 +145,6 @@ void initArrays(){
         if (i < 60) {
             carStepsForCar[i] = 0;
             speedForCar[i] = 0;
-            targetSpeedForCar[i] = randomInt;
             
         }
     }
@@ -673,9 +672,6 @@ void car(int index){
                         break;
                 }
               
-            }
-            else{
-                printf("other");
             }
             
             if(!shouldAccelerate) {
