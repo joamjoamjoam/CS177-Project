@@ -648,7 +648,9 @@ void car(int index){
                 
             }
         }
-        snapshot();
+        if (!index) {
+            snapshot();
+        }
     }
 }
 
